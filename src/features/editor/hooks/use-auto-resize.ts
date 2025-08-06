@@ -12,30 +12,51 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeParams) => {
     const width = container.offsetWidth;
     const height = container.offsetHeight;
 
-    canvas.setWidth(width)
-    canvas.setHeight(height)
+    canvas.setWidth(width);
+    canvas.setHeight(height);
 
-    const center = canvas.getCenter()
+    const center = canvas.getCenter();
 
-    const zoomRatio = .85;
-    const localWorkspace = canvas.getObjects().find((object) => object.name === "clip")
+    const zoomRatio = 0.85;
+    const localWorkspace = canvas
+      .getObjects()
+      .find((object) => object.name === "clip");
 
     //@ts-ignore
-    const scale = fabric.util.findScaleToFit(localWorkspace,{
+    const scale = fabric.util.findScaleToFit(localWorkspace, {
       width,
-      height
-    })
+      height,
+    });
 
     const zoom = zoomRatio * scale;
 
     canvas.setViewportTransform(fabric.iMatrix.concat());
     canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
+
+    if (!localWorkspace) return;
+
+    const workspaceCenter = localWorkspace.getCenterPoint();
+    const viewportTransform = canvas.viewportTransform;
+
+    if (!canvas.width || !canvas.height || !viewportTransform) return;
+    viewportTransform[4] =
+      canvas.width / 2 - workspaceCenter.x * viewportTransform[0];
+
+    viewportTransform[5] =
+      canvas.height / 2 - workspaceCenter.y * viewportTransform[3];
+
+    canvas.setViewportTransform(viewportTransform);
+
+    localWorkspace.clone((clonedWorkspace:fabric.Rect) => {
+      canvas.clipPath = clonedWorkspace;
+      canvas.requestRenderAll();
+    });
   }, [canvas, container]);
   useEffect(() => {
     let resizeObserver: ResizeObserver | null = null;
     if (canvas && container) {
       resizeObserver = new ResizeObserver(() => {
-        autoZoom()
+        autoZoom();
       });
       resizeObserver.observe(container);
     }
@@ -45,5 +66,5 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeParams) => {
         resizeObserver.disconnect();
       }
     };
-  }, [canvas, container,autoZoom]);
+  }, [canvas, container, autoZoom]);
 };
