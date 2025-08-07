@@ -2,6 +2,9 @@
 import { fabric } from "fabric";
 import { useEffect, useRef } from "react";
 import { useEditor } from "@/src/features/editor/hooks/use-editor";
+import Navbar from "@/src/features/editor/components/navbar";
+import Sidebar from "@/src/features/editor/components/sidebar";
+import Toolbar from "./toolbar";
 
 const Editor = () => {
   const { init } = useEditor();
@@ -31,9 +34,18 @@ const Editor = () => {
   }, [init]);
 
   return (
-    <div className="h-screen bg-muted">
-      <div ref={containerRef} className="h-full w-full flex items-center justify-center">
-        <canvas ref={canvasRef} className="w-full h-full" />
+    <div className="h-screen  bg-muted">
+      <Navbar />
+      <Sidebar />
+
+      <div className="absolute h-[calc(100%-64px)] w-full top-[100px] flex">
+        <Toolbar />
+        <div
+          ref={containerRef}
+          className="h-full w-full flex items-center justify-center"
+        >
+          <canvas ref={canvasRef} className="w-full h-full" />
+        </div>
       </div>
     </div>
   );
