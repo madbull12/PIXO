@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import { useEditor } from "@/src/features/editor/hooks/use-editor";
 import Navbar from "@/src/features/editor/components/navbar";
 import Sidebar from "@/src/features/editor/components/sidebar";
-import Toolbar from "./toolbar";
+import Toolbar from "@/src/features/editor/components/toolbar";
+import Footer from "@/src/features/editor/components/footer";
 
 const Editor = () => {
   const { init } = useEditor();
@@ -44,9 +45,10 @@ const Editor = () => {
           ref={containerRef}
           className="h-full w-full flex items-center justify-center"
         >
-          <canvas ref={canvasRef} className="w-full h-full" />
+          <canvas ref={canvasRef} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
