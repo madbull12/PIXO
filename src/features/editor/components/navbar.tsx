@@ -1,6 +1,7 @@
 import Logo from "@/src/components/logo";
 import { Button } from "@/src/components/ui/button";
 import { CursorClickIcon } from "@/src/components/ui/cursor-click";
+import { DownloadIcon } from "@/src/components/ui/download-icon";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +14,7 @@ import Hint from "@/src/components/ui/hint";
 import { RedoIcon } from "@/src/components/ui/redo-icon";
 import { Separator } from "@/src/components/ui/separator";
 import { UndoIcon } from "@/src/components/ui/undo-icon";
-import { ChevronDown, File } from "lucide-react";
+import { ChevronDown, CloudCheck, File } from "lucide-react";
 const Navbar = () => {
   return (
     <nav className="flex  items-center gap-x-6  h-16 px-4 bg-white shadow-md sticky top-0 z-50">
@@ -53,6 +54,47 @@ const Navbar = () => {
         </Hint>
       </div>
       <Separator orientation="vertical" className="mx-2 " />
+      <div className="flex items-center gap-x-2">
+        <CloudCheck size={20} className="shrink-0 text-muted-foreground" />
+        <p className="text-muted-foreground text-sm">Saved</p>
+      </div>
+      <DropdownMenu>
+        <DropdownMenuTrigger className="flex ml-auto h-10 px-4 rounded-lg hover:bg-muted cursor-pointer gap-x-2 items-center">
+          <span className=" font-medium">Export</span>
+
+          <DownloadIcon size={18} />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem className="flex items-center">
+            <File className=" size-6" />
+            <div>
+              <p>JSON</p>
+              <p className="text-muted-foreground text-xs">Saved for later editing</p>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center">
+            <File className=" size-6" />
+            <div>
+              <p>PNG</p>
+              <p className="text-muted-foreground text-xs">Best for sharing on the web</p>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center">
+            <File className=" size-6" />
+            <div>
+              <p>JPG</p>
+              <p className="text-muted-foreground text-xs">Best for printing</p>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center">
+            <File className=" size-6" />
+            <div>
+              <p>SVG</p>
+              <p className="text-muted-foreground text-xs">Best for editing in vector software</p>
+            </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </nav>
   );
 };
