@@ -1,11 +1,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AnimatedGradientText } from "@/src/components/ui/animated-gradient-text";
 
 const Logo = () => {
   const pathname = usePathname();
   return (
-    <Link href={pathname} className="italic font-black tracking-wide text-3xl bg-gradient-to-r from-indigo-700 via-indigo-500 to-indigo-300 inline-block text-transparent bg-clip-text">
-      PIXO
+    <Link
+      href={pathname}
+    >
+      <AnimatedGradientText
+        speed={2}
+        colorFrom="#ab55fc"
+        colorTo="#ff7b00"
+        className="text-4xl font-black italic"
+      >
+        PIXO
+      </AnimatedGradientText>
     </Link>
   );
 };
