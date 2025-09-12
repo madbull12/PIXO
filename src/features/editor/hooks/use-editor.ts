@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { fabric } from "fabric";
-import { useAutoResize } from "./use-auto-resize";
+import { useAutoResize } from "@/features/editor/hooks/use-auto-resize";
 interface UseEditorParams {
   initialCanvas: fabric.Canvas;
   initialContainer: HTMLDivElement;

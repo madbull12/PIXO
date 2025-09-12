@@ -1,13 +1,22 @@
 "use client";
 import { fabric } from "fabric";
-import { useEffect, useRef } from "react";
-import { useEditor } from "@/src/features/editor/hooks/use-editor";
-import Navbar from "@/src/features/editor/components/navbar";
-import Sidebar from "@/src/features/editor/components/sidebar";
-import Toolbar from "@/src/features/editor/components/toolbar";
-import Footer from "@/src/features/editor/components/footer";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useEditor } from "@/features/editor/hooks/use-editor";
+import Navbar from "@/features/editor/components/navbar";
+import Sidebar from "@/features/editor/components/sidebar";
+import Toolbar from "@/features/editor/components/toolbar";
+import Footer from "@/features/editor/components/footer";
+import { ActiveTool } from "@/features/editor/types";
 
 const Editor = () => {
+  const [activeTool,setActiveTool] = useState<ActiveTool>("select")
+
+  const onChangeActiveTool = useCallback((tool: ActiveTool) => {
+    if(tool === activeTool) {
+      return setActiveTool("select")
+    }
+    setActiveTool(tool)
+  },[activeTool])
   const { init } = useEditor();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,7 +46,7 @@ const Editor = () => {
   return (
     <div className="h-screen  bg-muted">
       <Navbar />
-      <Sidebar />
+      <Sidebar activeTool={activeTool} onChangeActiveTool={onChangeActiveTool} />
 
       <div className="absolute h-[calc(100%-64px)] w-full top-[100px] flex">
         <Toolbar />

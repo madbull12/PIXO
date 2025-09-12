@@ -1,4 +1,4 @@
-import Editor from "@/src/features/editor/components/editor";
+import Editor from "@/features/editor/components/editor";
 
 const EditorPage = () => {
   return <Editor />;

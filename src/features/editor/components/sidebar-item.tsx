@@ -1,5 +1,5 @@
-import { Button } from '@/src/components/ui/button';
-import { cn } from '@/src/lib/utils';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react'
 import React from 'react'
 
