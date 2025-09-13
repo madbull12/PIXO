@@ -45,7 +45,7 @@ const Editor = () => {
 
   return (
     <div className="h-screen  bg-muted">
-      <Navbar />
+      <Navbar activeTool={activeTool} onChangeActiveTool={onChangeActiveTool} />
       <Sidebar activeTool={activeTool} onChangeActiveTool={onChangeActiveTool} />
 
       <div className="absolute h-[calc(100%-64px)] w-full top-[100px] flex">
